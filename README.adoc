@@ -30,27 +30,8 @@ image::run.png[]
 
 * A text editor or an IDE
 * Java 17 or higher
-* The https://github.com/protocolbuffers/protobuf-javascript/releases/tag/v3.21.4[`protoc` Javascript] plugin
-* The https://github.com/grpc/grpc-web/releases/tag/1.5.0[`protoc` gRPC Web] plugin
 
-The `protoc` Javascript and gRPC Web plugin files must be installed somewhere on your `PATH` and be executable.
-
-[TIP]
-====
-On several Linux systems, you can install the plugins like this:
-
-[source,shell]
-----
-mkdir --parents "$HOME/.local/bin"
-curl -sL https://github.com/protocolbuffers/protobuf-javascript/releases/download/v3.21.4/protobuf-javascript-3.21.4-linux-x86_64.tar.gz | tar xzfO - bin/protoc-gen-js > "$HOME/.local/bin/protoc-gen-js"
-chmod u+x "$HOME/.local/bin/protoc-gen-js"
-curl -sL https://github.com/grpc/grpc-web/releases/download/1.5.0/protoc-gen-grpc-web-1.5.0-linux-x86_64 > "$HOME/.local/bin/protoc-gen-grpc-web"
-chmod u+x "$HOME/.local/bin/protoc-gen-grpc-web"
-----
-====
-
-You don't have to install `protoc` or the Java plugin.
-They will be managed by a Maven plugin.
+You don't have to install `protoc` or the protoc plugins like vertx-grpc-protoc-plugin2, protobuf-javascript and protoc-gen-grpc-web as they will be managed by a Maven plugin.
 
 == Create the project
 
@@ -79,7 +60,7 @@ From the service definition, several files must be generated:
 * Javascript files
 * gRPC Web specific (Javascript) files.
 
-The `protoc` invocation is managed with the https://github.com/xolstice/protobuf-maven-plugin[`protobuf-maven-plugin`].
+The `protoc` invocation is managed with the https://github.com/ascopes/protobuf-maven-plugin[`protobuf-maven-plugin`].
 
 ifdef::env-github[]
 link:pom.xml[Maven POM file]
@@ -91,8 +72,7 @@ ifndef::env-github[]
 include::pom.xml[tags="protobuf-maven-plugin",indent=0]
 ----
 
-<1> Properties prefixed with `os.detected` are computed with the https://github.com/trustin/os-maven-plugin[os-maven-plugin] extension.
-<2> We choose to use the `CommonJS` modules generation style instead of closures.
+<1> We choose to use the `CommonJS` modules generation style instead of closures.
 endif::env-github[]
 
 === The server side
